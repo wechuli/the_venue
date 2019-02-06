@@ -1,5 +1,6 @@
-import React from "react";
+import React,{useState} from "react";
 import Carousel from "./Carousel";
+import CountDown from './CountDown'
 
 const Index = () => {
   return (
@@ -8,6 +9,7 @@ const Index = () => {
       <div className="artist_name">
         <div className="wrapper">Ariana Grande</div>
       </div>
+      <CountDown/>
     </div>
   );
 };
