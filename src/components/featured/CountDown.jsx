@@ -1,29 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Slide from "react-reveal/Slide";
 
 const CountDown = () => {
+  const [deadline, setDeadline] = useState("Feb, 26, 2019");
+  const [days, setDays] = useState("0");
+  const [hours, setHours] = useState("0");
+  const [minutes, setMinutes] = useState("0");
+  const [seconds, setSeconds] = useState("0");
+
+
+  const getTimeUntil = (deadline) => {
+    const time = Date.parse(deadline)-Date.parse(new Date());
+    if(time <0){
+
+    }else{
+      const seconds = Math.floor((time/1000)%60);
+      const minutes = Math.floor((time/1000/60)%60);
+      const hours = Math.floor((time/(1000*60*60))%24);
+      const days = Math.floor(time/(1000*60*60*24));
+
+      setDays(days);
+      setHours(hours);
+      setMinutes(minutes);
+      setSeconds(seconds);
+   
+    }
+   
+  };
+
+  useEffect(() => {
+    const getTime = setInterval(() => getTimeUntil(deadline), 1000);
+
+    return () => {
+      clearInterval(getTime);
+    };
+  });
+
   return (
     <Slide left delay={500}>
       <div className="countdown_wrapper">
         <div className="countdown_top">Event Starts in</div>
         <div className="countdown_bottom">
           <div className="countdown_item">
-            <div className="countdown_time">23</div>
+            <div className="countdown_time">{days}</div>
             <div className="countdown_tage">Days</div>
           </div>
 
           <div className="countdown_item">
-            <div className="countdown_time">2</div>
+            <div className="countdown_time">{hours}</div>
             <div className="countdown_tage">Hs</div>
           </div>
 
           <div className="countdown_item">
-            <div className="countdown_time">20</div>
+            <div className="countdown_time">{minutes}</div>
             <div className="countdown_tage">Min</div>
           </div>
 
           <div className="countdown_item">
-            <div className="countdown_time">40</div>
+            <div className="countdown_time">{seconds}</div>
             <div className="countdown_tage">Sec</div>
           </div>
         </div>
